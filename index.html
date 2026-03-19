@@ -135,26 +135,31 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 16px;
+    padding: 10px 20px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(16px);
     z-index: 10;
     flex-shrink: 0;
-    gap: 8px;
+    gap: 12px;
     flex-wrap: wrap;
+  }
+
+  .title-block {
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .title-block h1 {
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     font-weight: 400;
     color: #fff;
   }
 
   .title-block .subtitle {
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     color: var(--text-dim);
     letter-spacing: 0.05em;
   }
@@ -402,6 +407,137 @@
   }
 
   /* ═══════════════════════════════════════
+     ONBOARDING OVERLAY
+     ═══════════════════════════════════════ */
+  #onboarding {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(4, 6, 12, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
+    gap: 16px;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+  }
+
+  #onboarding.dismissed {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .onboard-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .onboard-hints {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 420px;
+    width: 90%;
+  }
+
+  .onboard-hint {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+  }
+
+  .onboard-hint .hint-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+
+  .onboard-hint .hint-text {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .onboard-hint .hint-text strong {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .onboard-dismiss {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ═══════════════════════════════════════
+     DRAG HINT (3D view)
+     ═══════════════════════════════════════ */
+  #drag-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+
+  #drag-hint.dismissed {
+    opacity: 0;
+  }
+
+  .drag-icon {
+    width: 48px;
+    height: 48px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: drag-pulse 2s ease-in-out infinite;
+  }
+
+  .drag-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: rgba(255,255,255,0.6);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+
+  .drag-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  @keyframes drag-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  /* ═══════════════════════════════════════
      MOBILE LAYOUT
      ═══════════════════════════════════════ */
   body.mobile header {
@@ -513,6 +649,32 @@
 </div>
 
 <!-- ═══════════════════════════════════════
+     ONBOARDING OVERLAY
+     ═══════════════════════════════════════ -->
+<div id="onboarding" style="display:none;" onclick="dismissOnboarding()">
+  <div class="onboard-title">Quick Guide</div>
+  <div class="onboard-hints">
+    <div class="onboard-hint">
+      <span class="hint-icon">&#128257;</span>
+      <div class="hint-text"><strong>Parametric / 3D Model</strong> — Switch between the parametric equation trace and the interactive 3D pulsar model</div>
+    </div>
+    <div class="onboard-hint">
+      <span class="hint-icon">&#127912;</span>
+      <div class="hint-text"><strong>CLN / DTL</strong> — Toggle between a clean diagrammatic style and a detailed realistic view with starfield and glow effects</div>
+    </div>
+    <div class="onboard-hint">
+      <span class="hint-icon">&#128241;</span>
+      <div class="hint-text"><strong>Phone / PC toggle</strong> — Switch layout if auto-detection chose the wrong device mode</div>
+    </div>
+    <div class="onboard-hint">
+      <span class="hint-icon">&#9776;</span>
+      <div class="hint-text"><strong>Info panels</strong> — Tap the panel headers to expand or collapse the physics data and equations</div>
+    </div>
+  </div>
+  <div class="onboard-dismiss">Tap anywhere to continue</div>
+</div>
+
+<!-- ═══════════════════════════════════════
      MAIN APP
      ═══════════════════════════════════════ -->
 <div id="app">
@@ -552,6 +714,14 @@
       <canvas id="parametric-canvas"></canvas>
     </div>
     <div id="three-container" class="hidden"></div>
+
+    <!-- Drag hint for 3D view -->
+    <div id="drag-hint" class="hidden" style="opacity:0;">
+      <div class="drag-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L12 22M12 2L8 6M12 2L16 6M12 22L8 18M12 22L16 18M2 12L22 12M2 12L6 8M2 12L6 16M22 12L18 8M22 12L18 16"/></svg>
+      </div>
+      <div class="drag-text">Drag to rotate<br>Scroll to zoom</div>
+    </div>
 
     <!-- Info Panel -->
     <div class="panel auto-collapse" id="info-panel">
@@ -655,7 +825,19 @@ function selectDevice(mode) {
   applyDeviceMode(mode);
   document.getElementById('device-switch').checked = (mode === 'desktop');
   document.getElementById('splash').classList.add('dismissed');
-  setTimeout(function() { document.getElementById('splash').style.display = 'none'; }, 600);
+  setTimeout(function() {
+    document.getElementById('splash').style.display = 'none';
+    // Show onboarding overlay
+    var ob = document.getElementById('onboarding');
+    ob.style.display = 'flex';
+    setTimeout(function() { ob.style.opacity = '1'; }, 50);
+  }, 600);
+}
+
+function dismissOnboarding() {
+  var ob = document.getElementById('onboarding');
+  ob.classList.add('dismissed');
+  setTimeout(function() { ob.style.display = 'none'; }, 500);
 }
 
 function applyDeviceMode(mode) {
@@ -975,8 +1157,8 @@ function initThree() {
   updateVis();
 
   var el = renderer.domElement;
-  el.addEventListener('mousedown', function(e) { isDragging=true; prevM={x:e.clientX,y:e.clientY}; });
-  el.addEventListener('touchstart', function(e) { isDragging=true; prevM={x:e.touches[0].clientX,y:e.touches[0].clientY}; }, {passive:true});
+  el.addEventListener('mousedown', function(e) { isDragging=true; prevM={x:e.clientX,y:e.clientY}; dismissDragHint(); });
+  el.addEventListener('touchstart', function(e) { isDragging=true; prevM={x:e.touches[0].clientX,y:e.touches[0].clientY}; dismissDragHint(); }, {passive:true});
   window.addEventListener('mousemove', function(e) { if(isDragging) doDrag(e.clientX,e.clientY); });
   window.addEventListener('touchmove', function(e) { if(isDragging) doDrag(e.touches[0].clientX,e.touches[0].clientY); }, {passive:true});
   window.addEventListener('mouseup', function(){isDragging=false;});
@@ -1151,6 +1333,9 @@ var eqEl=document.getElementById('equation-panel');
 var legEl=document.getElementById('legend-panel');
 var pulseEl=document.getElementById('pulse-indicator');
 
+var dragHintDismissed = false;
+var dragHintEl = document.getElementById('drag-hint');
+
 function setView(v) {
   currentView=v;
   document.querySelectorAll('#view-toggle .toggle-btn').forEach(function(b){b.classList.toggle('active',b.dataset.view===v);});
@@ -1160,6 +1345,22 @@ function setView(v) {
   eqEl.style.opacity=isP?'1':'0';eqEl.style.pointerEvents=isP?'auto':'none';
   legEl.style.opacity=isP?'0':'1';legEl.style.pointerEvents=isP?'none':'auto';
   pulseEl.style.opacity=isP?'0':'1';pulseEl.style.pointerEvents=isP?'none':'auto';
+
+  // Show drag hint on 3D view if not yet dismissed
+  if (!isP && !dragHintDismissed) {
+    dragHintEl.classList.remove('hidden');
+    dragHintEl.style.opacity = '1';
+  } else {
+    dragHintEl.classList.add('hidden');
+    dragHintEl.style.opacity = '0';
+  }
+}
+
+function dismissDragHint() {
+  if (dragHintDismissed) return;
+  dragHintDismissed = true;
+  dragHintEl.classList.add('dismissed');
+  setTimeout(function() { dragHintEl.classList.add('hidden'); }, 700);
 }
 
 document.querySelectorAll('#view-toggle .toggle-btn').forEach(function(b){
