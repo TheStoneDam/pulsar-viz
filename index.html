@@ -74,12 +74,12 @@
 
   #splash .splash-sub {
     font-family: var(--font-mono);
-    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+    font-size: clamp(0.7rem, 1.8vw, 0.85rem);
     color: var(--text-dim);
     text-align: center;
     letter-spacing: 0.06em;
-    max-width: 340px;
-    line-height: 1.6;
+    max-width: 480px;
+    line-height: 1.7;
   }
 
   .splash-buttons {
@@ -277,7 +277,7 @@
     border-radius: 10px;
     z-index: 5;
     font-family: var(--font-mono);
-    font-size: 0.66rem;
+    font-size: 0.78rem;
     line-height: 1.65;
     transition: opacity 0.4s, transform 0.3s;
     overflow: hidden;
@@ -294,7 +294,7 @@
   }
 
   .panel-header .chevron {
-    font-size: 0.55rem;
+    font-size: 0.65rem;
     color: var(--text-dim);
     transition: transform 0.25s;
   }
@@ -318,7 +318,7 @@
   }
 
   .panel-label {
-    font-size: 0.56rem;
+    font-size: 0.66rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-dim);
@@ -341,20 +341,20 @@
   .divider { height: 1px; background: var(--border); margin: 5px 0; }
 
   /* Panel positions - desktop */
-  #info-panel { bottom: 14px; left: 14px; max-width: 300px; }
-  #equation-panel { top: 14px; right: 14px; max-width: 330px; }
-  #legend-panel { top: 14px; right: 14px; min-width: 180px; }
+  #info-panel { bottom: 14px; left: 14px; max-width: 340px; }
+  #equation-panel { top: 14px; right: 14px; max-width: 370px; }
+  #legend-panel { top: 14px; right: 14px; min-width: 210px; }
 
   .eq-title {
     font-family: var(--font-display);
-    font-size: 0.82rem;
+    font-size: 0.95rem;
     color: #fff;
     margin-bottom: 6px;
   }
 
   .eq-line {
     color: var(--green);
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     line-height: 1.75;
   }
 
@@ -365,7 +365,7 @@
   .eq-note {
     margin-top: 6px;
     color: var(--text-dim);
-    font-size: 0.56rem;
+    font-size: 0.66rem;
     line-height: 1.6;
     border-top: 1px solid var(--border);
     padding-top: 6px;
@@ -377,7 +377,7 @@
     gap: 7px;
     padding: 2px 0;
     color: var(--text-dim);
-    font-size: 0.6rem;
+    font-size: 0.72rem;
   }
 
   .legend-dot {
@@ -492,7 +492,7 @@
   <div class="splash-sub">
     Interactive visualization of the fastest known millisecond pulsar — 716 rotations per second
   </div>
-  <div class="splash-sub" style="color:var(--accent); font-size:0.6rem;">
+  <div class="splash-sub" style="color:var(--accent); font-size:0.72rem;">
     Choose your device for the best experience
   </div>
   <div class="splash-buttons">
@@ -507,7 +507,7 @@
       <span class="rec" id="pc-rec" style="display:none;">DETECTED</span>
     </button>
   </div>
-  <div class="splash-sub" style="margin-top:6px; font-size:0.52rem;">
+  <div class="splash-sub" style="margin-top:6px; font-size:0.62rem;">
     You can switch anytime via the toggle in the header
   </div>
 </div>
@@ -630,7 +630,7 @@
 
     <!-- Pulse -->
     <div id="pulse-indicator" style="opacity:0;pointer-events:none;">
-      <canvas id="pulse-canvas" width="220" height="80"></canvas>
+      <canvas id="pulse-canvas" width="300" height="110"></canvas>
     </div>
   </div>
 </div>
@@ -715,7 +715,7 @@ var prevM = {x:0,y:0};
 var camTheta = Math.PI / 5;
 var camPhi = Math.PI / 2.8;
 var camDist = 5.2;
-var pulseHistory = new Float32Array(220);
+var pulseHistory = new Float32Array(300);
 var pulseIdx = 0;
 var starCache = [];
 
